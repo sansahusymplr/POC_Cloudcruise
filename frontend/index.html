@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CloudCruise Autofill POC</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>CloudCruise Autofill POC</h1>
+    <nav>
+      <button class="tab-btn active" data-tab="practitioners">Practitioners</button>
+      <button class="tab-btn" data-tab="mappings">Workflow Mappings</button>
+      <button class="tab-btn" data-tab="sessions">Sessions</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Practitioners -->
+    <section id="tab-practitioners" class="tab-panel active">
+      <div class="section-header">
+        <h2>Practitioners</h2>
+        <div class="pagination">
+          <button id="prev-page">&larr; Prev</button>
+          <span id="page-info">Page 1</span>
+          <button id="next-page">Next &rarr;</button>
+        </div>
+      </div>
+      <table id="practitioners-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>License</th>
+            <th>Group / City</th>
+            <th>Specialty</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- Mappings -->
+    <section id="tab-mappings" class="tab-panel">
+      <h2>Workflow Mappings</h2>
+      <form id="mapping-form" class="row-form">
+        <input name="name" placeholder="Friendly name (e.g. KY Medicaid)" required />
+        <input name="target_url" placeholder="Target URL (e.g. https://kymedicaid.example.com/enroll)" required />
+        <input name="workflow_id" placeholder="CloudCruise workflow_id" required />
+        <button type="submit">Add Mapping</button>
+      </form>
+      <table id="mappings-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Target URL</th>
+            <th>Workflow ID</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- Sessions -->
+    <section id="tab-sessions" class="tab-panel">
+      <div class="section-header">
+        <h2>Autofill Sessions</h2>
+        <button id="refresh-sessions">Refresh</button>
+      </div>
+      <table id="sessions-table">
+        <thead>
+          <tr>
+            <th>When</th>
+            <th>Practitioner</th>
+            <th>Target URL</th>
+            <th>Workflow ID</th>
+            <th>Session</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Target URL picker (shown after clicking Autofill) -->
+  <div id="url-picker" class="modal hidden">
+    <div class="modal-body">
+      <h3>Pick target URL</h3>
+      <p>Which URL should CloudCruise autofill for <span id="picker-name"></span>?</p>
+      <select id="picker-select"></select>
+      <div class="modal-actions">
+        <button id="picker-cancel">Cancel</button>
+        <button id="picker-confirm" class="primary">Autofill</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result modal -->
+  <div id="result-modal" class="modal hidden">
+    <div class="modal-body">
+      <h3 id="result-title">Result</h3>
+      <pre id="result-body"></pre>
+      <div class="modal-actions">
+        <button id="result-close" class="primary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
